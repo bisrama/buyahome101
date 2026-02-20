@@ -1,0 +1,24 @@
+{{ define "main" }}
+<article>
+    <div class="article-header">
+        <div class="container">
+            {{ with .Params.categories }}
+            <span class="card-category">{{ index . 0 }}</span>
+            {{ end }}
+            <h1>{{ .Title }}</h1>
+            <div class="article-meta">
+                {{ if .Params.author }}{{ .Params.author }}{{ else }}BuyAHome101{{ end }} • {{ .Date.Format "January 2, 2006" }}
+            </div>
+        </div>
+    </div>
+    <div class="article-content">
+        {{ .Content }}
+        
+        <div class="cta-box">
+            <h3>Questions About This Topic?</h3>
+            <p>Get personalized guidance from a mortgage professional.</p>
+            <a href="/prequalify/" class="btn btn-primary">Get Pre-Qualified</a>
+        </div>
+    </div>
+</article>
+{{ end }}

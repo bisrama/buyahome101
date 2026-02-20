@@ -1,0 +1,39 @@
+baseURL = 'https://buyahome101.com/'
+languageCode = 'en-us'
+title = 'Buy A Home 101 - Your Guide to Homeownership'
+theme = "buyahome"
+
+[params]
+description = "Your complete guide to buying your first home or investment property. Learn about mortgages, down payment assistance, and financing options."
+logo = "/images/logo.svg"
+facebook = "https://facebook.com/buyahome101"
+instagram = "https://instagram.com/buyahome101"
+
+[taxonomies]
+category = "categories"
+tag = "tags"
+
+[[menu.main]]
+name = "Home"
+url = "/"
+weight = 1
+
+[[menu.main]]
+name = "First-Time Buyers"
+url = "/categories/first-time-buyers/"
+weight = 2
+
+[[menu.main]]
+name = "Investment Properties"
+url = "/categories/investment-properties/"
+weight = 3
+
+[[menu.main]]
+name = "Loan Programs"
+url = "/categories/loan-programs/"
+weight = 4
+
+[[menu.main]]
+name = "Get Pre-Qualified"
+url = "/prequalify/"
+weight = 5

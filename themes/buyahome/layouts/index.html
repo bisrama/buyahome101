@@ -1,0 +1,48 @@
+{{ define "main" }}
+<section class="hero">
+    <div class="container">
+        <h1>Your Path to Homeownership Starts Here</h1>
+        <p>Whether you're buying your first home or expanding your investment portfolio, we provide the education and tools you need to make informed decisions.</p>
+        <div class="hero-buttons">
+            <a href="/prequalify/" class="btn btn-primary">Get Pre-Qualified</a>
+            <a href="/categories/first-time-buyers/" class="btn" style="background: rgba(255,255,255,0.2); color: white;">Start Learning</a>
+        </div>
+    </div>
+</section>
+
+<section class="container">
+    <div class="section-title">
+        <h2>Latest Articles</h2>
+        <p>Expert guidance on buying homes, financing options, and building wealth through real estate.</p>
+    </div>
+    <div class="content-grid">
+        {{ range first 6 (where .Site.RegularPages "Type" "in" .Site.Params.mainSections) }}
+        <article class="card">
+            <div class="card-image">
+                {{ if .Params.icon }}
+                {{ .Params.icon }}
+                {{ else }}
+                🏠
+                {{ end }}
+            </div>
+            <div class="card-content">
+                {{ with .Params.categories }}
+                <span class="card-category">{{ index . 0 }}</span>
+                {{ end }}
+                <h3><a href="{{ .Permalink }}">{{ .Title }}</a></h3>
+                <p>{{ .Summary | truncate 100 }}</p>
+                <div class="card-meta">{{ .Date.Format "Jan 2, 2006" }}</div>
+            </div>
+        </article>
+        {{ end }}
+    </div>
+</section>
+
+<section class="container" style="padding: 60px 20px;">
+    <div class="cta-box">
+        <h3>Ready to Buy a Home?</h3>
+        <p>Get pre-qualified today and understand your buying power. It only takes 2 minutes.</p>
+        <a href="/prequalify/" class="btn btn-primary">Start Pre-Qualification</a>
+    </div>
+</section>
+{{ end }}

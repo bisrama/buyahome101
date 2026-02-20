@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ if .IsHome }}{{ .Site.Title }}{{ else }}{{ .Title }} - {{ .Site.Title }}{{ end }}</title>
+    <meta name="description" content="{{ if .IsHome }}{{ .Site.Params.description }}{{ else }}{{ .Summary | truncate 160 }}{{ end }}">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    {{ range .AlternativeOutputFormats }}
+    <link rel="{{ .Rel }}" type="{{ .MediaType.Type }}" href="{{ .Permalink | safeURL }}">
+    {{ end }}
+</head>
+<body>
+    <header class="site-header">
+        <div class="container">
+            <a href="/" class="logo">
+                <img src="/images/logo.jpg" alt="BuyAHome101" height="50">
+            </a>
+            <nav class="main-nav">
+                {{ range .Site.Menus.main }}
+                <a href="{{ .URL }}" class="{{ if $.IsMenuCurrent "main" . }}active{{ end }}">{{ .Name }}</a>
+                {{ end }}
+            </nav>
+            <a href="/prequalify/" class="btn btn-primary">Get Pre-Qualified</a>
+        </div>
+    </header>
+
+    <main>
+        {{ block "main" . }}{{ end }}
+    </main>
+
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="/" class="logo">
+                        <img src="/images/logo.jpg" alt="BuyAHome101" height="40">
+                    </a>
+                    <p>Your guide to homeownership and investment properties. Making the American dream accessible to everyone.</p>
+                </div>
+                <div class="footer-links">
+                    <h4>Resources</h4>
+                    <ul>
+                        <li><a href="/categories/first-time-buyers/">First-Time Buyers</a></li>
+                        <li><a href="/categories/investment-properties/">Investment Properties</a></li>
+                        <li><a href="/categories/loan-programs/">Loan Programs</a></li>
+                        <li><a href="/categories/credit-tips/">Credit Tips</a></li>
+                    </ul>
+                </div>
+                <div class="footer-contact">
+                    <h4>Ready to Buy?</h4>
+                    <p>Get pre-qualified and start your journey to homeownership.</p>
+                    <a href="/prequalify/" class="btn btn-primary">Start Here</a>
+                </div>
+                <div class="footer-social">
+                    <h4>Follow Us</h4>
+                    <div class="social-links">
+                        <a href="{{ .Site.Params.facebook }}" target="_blank" rel="noopener">Facebook</a>
+                        <a href="{{ .Site.Params.instagram }}" target="_blank" rel="noopener">Instagram</a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; {{ now.Year }} BuyAHome101. All rights reserved.</p>
+                <p class="disclaimer">NMLS# • Not a lender. Educational content only.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
