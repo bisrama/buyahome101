@@ -9,6 +9,11 @@ logo = "/images/logo.svg"
 facebook = "https://facebook.com/buyahome101"
 instagram = "https://instagram.com/buyahome101"
 
+[markup]
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = true
+
 [taxonomies]
 category = "categories"
 tag = "tags"
