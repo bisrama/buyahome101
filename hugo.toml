@@ -1,4 +1,4 @@
-baseURL = 'https://buyahome101.com/'
+baseURL = '/'
 languageCode = 'en-us'
 title = 'Buy A Home 101 - Your Guide to Homeownership'
 theme = "buyahome"

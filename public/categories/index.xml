@@ -2,45 +2,45 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Categories on Buy A Home 101 - Your Guide to Homeownership</title>
-    <link>https://buyahome101.com/categories/</link>
+    <link>/categories/</link>
     <description>Recent content in Categories on Buy A Home 101 - Your Guide to Homeownership</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Fri, 20 Feb 2026 00:00:00 +0000</lastBuildDate>
-    <atom:link href="https://buyahome101.com/categories/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="/categories/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Credit Tips</title>
-      <link>https://buyahome101.com/categories/credit-tips/</link>
+      <link>/categories/credit-tips/</link>
       <pubDate>Fri, 20 Feb 2026 00:00:00 +0000</pubDate>
-      <guid>https://buyahome101.com/categories/credit-tips/</guid>
+      <guid>/categories/credit-tips/</guid>
       <description></description>
     </item>
     <item>
       <title>First-Time Buyers</title>
-      <link>https://buyahome101.com/categories/first-time-buyers/</link>
+      <link>/categories/first-time-buyers/</link>
       <pubDate>Fri, 20 Feb 2026 00:00:00 +0000</pubDate>
-      <guid>https://buyahome101.com/categories/first-time-buyers/</guid>
+      <guid>/categories/first-time-buyers/</guid>
       <description></description>
     </item>
     <item>
       <title>Investment Properties</title>
-      <link>https://buyahome101.com/categories/investment-properties/</link>
+      <link>/categories/investment-properties/</link>
       <pubDate>Fri, 20 Feb 2026 00:00:00 +0000</pubDate>
-      <guid>https://buyahome101.com/categories/investment-properties/</guid>
+      <guid>/categories/investment-properties/</guid>
       <description></description>
     </item>
     <item>
       <title>Loan Programs</title>
-      <link>https://buyahome101.com/categories/loan-programs/</link>
+      <link>/categories/loan-programs/</link>
       <pubDate>Fri, 20 Feb 2026 00:00:00 +0000</pubDate>
-      <guid>https://buyahome101.com/categories/loan-programs/</guid>
+      <guid>/categories/loan-programs/</guid>
       <description></description>
     </item>
     <item>
       <title>Self-Employed</title>
-      <link>https://buyahome101.com/categories/self-employed/</link>
+      <link>/categories/self-employed/</link>
       <pubDate>Fri, 20 Feb 2026 00:00:00 +0000</pubDate>
-      <guid>https://buyahome101.com/categories/self-employed/</guid>
+      <guid>/categories/self-employed/</guid>
       <description></description>
     </item>
   </channel>
