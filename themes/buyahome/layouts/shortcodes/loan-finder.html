@@ -1,0 +1,471 @@
+<div class="finder-container">
+    <div class="finder-progress">
+        <div class="progress-bar" id="progressBar"></div>
+    </div>
+    
+    <!-- Step 1: Loan Purpose -->
+    <div class="finder-step active" data-step="1">
+        <h2>What are you looking to do?</h2>
+        <div class="finder-options">
+            <label class="finder-option">
+                <input type="radio" name="purpose" value="purchase">
+                <span class="option-card">
+                    <span class="option-icon">🏠</span>
+                    <span class="option-title">Purchase a Home</span>
+                </span>
+            </label>
+            <label class="finder-option">
+                <input type="radio" name="purpose" value="refinance">
+                <span class="option-card">
+                    <span class="option-icon">💰</span>
+                    <span class="option-title">Refinance</span>
+                </span>
+            </label>
+        </div>
+    </div>
+
+    <!-- Step 2: Property Type -->
+    <div class="finder-step" data-step="2">
+        <h2>What type of property?</h2>
+        <div class="finder-options">
+            <label class="finder-option">
+                <input type="radio" name="property" value="primary">
+                <span class="option-card">
+                    <span class="option-icon">🏡</span>
+                    <span class="option-title">Primary Residence</span>
+                </span>
+            </label>
+            <label class="finder-option">
+                <input type="radio" name="property" value="secondary">
+                <span class="option-card">
+                    <span class="option-icon">🏖️</span>
+                    <span class="option-title">Second Home</span>
+                </span>
+            </label>
+            <label class="finder-option">
+                <input type="radio" name="property" value="investment">
+                <span class="option-card">
+                    <span class="option-icon">📈</span>
+                    <span class="option-title">Investment Property</span>
+                </span>
+            </label>
+        </div>
+    </div>
+
+    <!-- Step 3: Income Documentation -->
+    <div class="finder-step" data-step="3">
+        <h2>How can you document your income?</h2>
+        <div class="finder-options">
+            <label class="finder-option">
+                <input type="radio" name="income" value="taxes">
+                <span class="option-card">
+                    <span class="option-icon">📄</span>
+                    <span class="option-title">Tax Returns / W-2s</span>
+                    <span class="option-desc">Standard 2 years of tax returns</span>
+                </span>
+            </label>
+            <label class="finder-option">
+                <input type="radio" name="income" value="bank">
+                <span class="option-card">
+                    <span class="option-icon">🏦</span>
+                    <span class="option-title">Bank Statements</span>
+                    <span class="option-desc">12-24 months of business/personal bank statements</span>
+                </span>
+            </label>
+            <label class="finder-option">
+                <input type="radio" name="income" value="none">
+                <span class="option-card">
+                    <span class="option-icon">❌</span>
+                    <span class="option-title">No Income Verification</span>
+                    <span class="option-desc">Based on property cash flow only</span>
+                </span>
+            </label>
+        </div>
+    </div>
+
+    <!-- Step 4: Employment Length -->
+    <div class="finder-step" data-step="4">
+        <h2>How long have you been employed?</h2>
+        <div class="finder-options">
+            <label class="finder-option">
+                <input type="radio" name="employment" value="2years">
+                <span class="option-card">
+                    <span class="option-icon">✅</span>
+                    <span class="option-title">2+ Years</span>
+                </span>
+            </label>
+            <label class="finder-option">
+                <input type="radio" name="employment" value="1year">
+                <span class="option-card">
+                    <span class="option-icon">⚠️</span>
+                    <span class="option-title">1-2 Years</span>
+                </span>
+            </label>
+            <label class="finder-option">
+                <input type="radio" name="employment" value="selfemployed">
+                <span class="option-card">
+                    <span class="option-icon">💼</span>
+                    <span class="option-title">Self-Employed 5+ Years</span>
+                    <span class="option-desc">Can potentially use 1 year only</span>
+                </span>
+            </label>
+        </div>
+    </div>
+
+    <!-- Step 5: Veteran Status -->
+    <div class="finder-step" data-step="5">
+        <h2>Are you a veteran or active-duty military?</h2>
+        <div class="finder-options">
+            <label class="finder-option">
+                <input type="radio" name="veteran" value="yes">
+                <span class="option-card">
+                    <span class="option-icon">🎖️</span>
+                    <span class="option-title">Yes - VA Eligible</span>
+                </span>
+            </label>
+            <label class="finder-option">
+                <input type="radio" name="veteran" value="no">
+                <span class="option-card">
+                    <span class="option-icon">❌</span>
+                    <span class="option-title">No</span>
+                </span>
+            </label>
+        </div>
+    </div>
+
+    <!-- Step 6: Credit Score -->
+    <div class="finder-step" data-step="6">
+        <h2>What's your approximate credit score?</h2>
+        <div class="finder-options">
+            <label class="finder-option">
+                <input type="radio" name="credit" value="720+">
+                <span class="option-card">
+                    <span class="option-icon">⭐</span>
+                    <span class="option-title">720+ (Excellent)</span>
+                </span>
+            </label>
+            <label class="finder-option">
+                <input type="radio" name="credit" value="680-719">
+                <span class="option-card">
+                    <span class="option-icon">👍</span>
+                    <span class="option-title">680-719 (Good)</span>
+                </span>
+            </label>
+            <label class="finder-option">
+                <input type="radio" name="credit" value="620-679">
+                <span class="option-card">
+                    <span class="option-icon">⚡</span>
+                    <span class="option-title">620-679 (Fair)</span>
+                </span>
+            </label>
+            <label class="finder-option">
+                <input type="radio" name="credit" value="below620">
+                <span class="option-card">
+                    <span class="option-icon">🔧</span>
+                    <span class="option-title">Below 620</span>
+                </span>
+            </label>
+        </div>
+    </div>
+
+    <!-- Step 7: Down Payment -->
+    <div class="finder-step" data-step="7">
+        <h2>How much can you put down?</h2>
+        <div class="finder-options">
+            <label class="finder-option">
+                <input type="radio" name="downpayment" value="20+">
+                <span class="option-card">
+                    <span class="option-icon">💵</span>
+                    <span class="option-title">20%+</span>
+                </span>
+            </label>
+            <label class="finder-option">
+                <input type="radio" name="downpayment" value="10-20">
+                <span class="option-card">
+                    <span class="option-icon">💰</span>
+                    <span class="option-title">10-20%</span>
+                </span>
+            </label>
+            <label class="finder-option">
+                <input type="radio" name="downpayment" value="3.5-10">
+                <span class="option-card">
+                    <span class="option-icon">💳</span>
+                    <span class="option-title">3.5-10%</span>
+                </span>
+            </label>
+            <label class="finder-option">
+                <input type="radio" name="downpayment" value="0-3.5">
+                <span class="option-card">
+                    <span class="option-icon">🆓</span>
+                    <span class="option-title">0-3.5%</span>
+                </span>
+            </label>
+        </div>
+    </div>
+
+    <!-- Results -->
+    <div class="finder-step" data-step="results">
+        <h2>Your Recommended Loan Programs</h2>
+        <div id="results"></div>
+        <div class="cta-box">
+            <h3>Ready to Get Pre-Qualified?</h3>
+            <p>Our team will verify these programs and find the best option for you.</p>
+            <a href="/prequalify/" class="btn btn-primary">Start Pre-Qualification</a>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <div class="finder-nav">
+        <button type="button" class="btn btn-secondary" id="prevBtn" disabled>Back</button>
+        <button type="button" class="btn btn-primary" id="nextBtn">Next</button>
+    </div>
+</div>
+
+<style>
+.finder-container {
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 20px;
+}
+.finder-progress {
+    height: 4px;
+    background: #e2e8f0;
+    border-radius: 2px;
+    margin-bottom: 30px;
+}
+.progress-bar {
+    height: 100%;
+    background: #FC5C06;
+    border-radius: 2px;
+    transition: width 0.3s ease;
+    width: 14%;
+}
+.finder-step {
+    display: none;
+}
+.finder-step.active {
+    display: block;
+}
+.finder-step h2 {
+    text-align: center;
+    margin-bottom: 25px;
+    color: #010101;
+}
+.finder-options {
+    display: grid;
+    gap: 15px;
+}
+.finder-option {
+    cursor: pointer;
+}
+.finder-option input {
+    display: none;
+}
+.option-card {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 20px;
+    border: 2px solid #e2e8f0;
+    border-radius: 8px;
+    transition: all 0.2s;
+}
+.finder-option input:checked + .option-card {
+    border-color: #FC5C06;
+    background: #fff7ed;
+}
+.option-icon {
+    font-size: 32px;
+}
+.option-title {
+    font-weight: 600;
+    font-size: 18px;
+}
+.option-desc {
+    display: block;
+    font-size: 14px;
+    color: #64748b;
+    margin-top: 4px;
+}
+.finder-nav {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 30px;
+}
+.finder-nav .btn {
+    min-width: 120px;
+}
+.result-card {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 15px;
+}
+.result-card h3 {
+    color: #010101;
+    margin-bottom: 10px;
+}
+.result-card .match-score {
+    display: inline-block;
+    background: #10b981;
+    color: white;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+.result-card ul {
+    margin: 10px 0;
+    padding-left: 20px;
+}
+.result-card li {
+    margin-bottom: 5px;
+}
+</style>
+
+<script>
+(function() {
+    let currentStep = 1;
+    const totalSteps = 7;
+    const answers = {};
+
+    function updateProgress() {
+        const progress = (currentStep / totalSteps) * 100;
+        document.getElementById('progressBar').style.width = progress + '%';
+    }
+
+    function showStep(step) {
+        document.querySelectorAll('.finder-step').forEach(s => s.classList.remove('active'));
+        const stepEl = document.querySelector('[data-step="' + step + '"]');
+        if (stepEl) stepEl.classList.add('active');
+        
+        document.getElementById('prevBtn').disabled = step === 1;
+        document.getElementById('nextBtn').textContent = step === totalSteps ? 'See Results' : 'Next';
+        updateProgress();
+    }
+
+    function saveAnswer() {
+        const currentQuestion = document.querySelector('.finder-step.active');
+        const radio = currentQuestion.querySelector('input[type="radio"]:checked');
+        if (radio) {
+            answers[currentQuestion.dataset.step] = radio.value;
+        }
+    }
+
+    function calculateResults() {
+        const results = [];
+        
+        // VA Loan
+        if (answers[5] === 'yes' && answers[1] === 'purchase') {
+            results.push({
+                name: 'VA Loan',
+                score: '100% Match',
+                desc: '0% down, no PMI, competitive rates for veterans.',
+                bestFor: ['No down payment needed', 'No PMI required', 'Flexible credit'],
+                icon: '🎖️'
+            });
+        }
+
+        // Conventional
+        if (answers[2] === 'primary' && answers[3] === 'taxes' && parseInt(answers[6]) >= 680) {
+            if (answers[7] === '20+' || answers[7] === '10-20') {
+                results.push({
+                    name: 'Conventional Loan',
+                    score: '95% Match',
+                    desc: 'Best rates for borrowers with good credit and income.',
+                    bestFor: ['Competitive interest rates', 'PMI can be removed at 20% equity', 'Lower overall costs'],
+                    icon: '🏦'
+                });
+            }
+        }
+
+        // FHA
+        if ((parseInt(answers[6]) < 720 || answers[7] === '3.5-10') && answers[2] === 'primary') {
+            results.push({
+                name: 'FHA Loan',
+                score: '90% Match',
+                desc: '3.5% down, flexible credit requirements.',
+                bestFor: ['Lower credit scores OK', 'Gift funds allowed', 'Fixed and ARM options'],
+                icon: '🏠'
+            });
+        }
+
+        // Self-Employed / Bank Statements
+        if (answers[3] === 'bank' || (answers[4] === 'selfemployed' && answers[3] === 'taxes')) {
+            results.push({
+                name: 'Bank Statement Loan',
+                score: '95% Match',
+                desc: 'Use 12-24 months of bank statements instead of tax returns.',
+                bestFor: ['Self-employed borrowers', 'High deductions', '1099 income'],
+                icon: '💼'
+            });
+        }
+
+        // DSCR Investment
+        if (answers[2] === 'investment' || answers[3] === 'none') {
+            results.push({
+                name: 'DSCR Loan',
+                score: '100% Match',
+                desc: 'No income verification. Qualifies based on property cash flow.',
+                bestFor: ['No tax returns needed', 'Investor properties', 'Cash flow qualification'],
+                icon: '📈'
+            });
+        }
+
+        // Freddie 5-Year Rule
+        if (answers[4] === 'selfemployed') {
+            results.push({
+                name: 'Freddie Mac (5-Year Rule)',
+                score: 'Best for Self-Employed',
+                desc: 'If you have 5+ years self-employed, only 1 year of tax returns needed.',
+                bestFor: ['Established business owners', 'Strong recent income', 'Better rates than non-QM'],
+                icon: '⭐'
+            });
+        }
+
+        return results;
+    }
+
+    function showResults() {
+        const results = calculateResults();
+        const container = document.getElementById('results');
+        
+        if (results.length === 0) {
+            container.innerHTML = '<p>Based on your answers, we recommend speaking with a lender to discuss your options. Every situation is unique!</p>';
+        } else {
+            container.innerHTML = results.map(r => `
+                <div class="result-card">
+                    <span class="match-score">${r.score}</span>
+                    <h3>${r.icon} ${r.name}</h3>
+                    <p>${r.desc}</p>
+                    <ul>
+                        ${r.bestFor.map(item => `<li>${item}</li>`).join('')}
+                    </ul>
+                </div>
+            `).join('');
+        }
+        
+        document.querySelector('[data-step="results"]').classList.add('active');
+        document.getElementById('progressBar').style.width = '100%';
+        document.querySelector('.finder-nav').style.display = 'none';
+    }
+
+    document.getElementById('nextBtn').addEventListener('click', function() {
+        saveAnswer();
+        if (currentStep < totalSteps) {
+            currentStep++;
+            showStep(currentStep);
+        } else {
+            showResults();
+        }
+    });
+
+    document.getElementById('prevBtn').addEventListener('click', function() {
+        if (currentStep > 1) {
+            currentStep--;
+            showStep(currentStep);
+        }
+    });
+})();
+</script>

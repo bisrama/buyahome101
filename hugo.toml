@@ -39,6 +39,11 @@ url = "/categories/loan-programs/"
 weight = 4
 
 [[menu.main]]
+name = "Find My Loan"
+url = "/loan-finder/"
+weight = 5
+
+[[menu.main]]
 name = "Get Pre-Qualified"
 url = "/prequalify/"
-weight = 5
+weight = 6
