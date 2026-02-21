@@ -33,6 +33,7 @@
                 <span class="option-card">
                     <span class="option-icon">🏡</span>
                     <span class="option-title">Primary Residence</span>
+                    <span class="option-desc">Where you'll live most of the year</span>
                 </span>
             </label>
             <label class="finder-option">
@@ -40,6 +41,7 @@
                 <span class="option-card">
                     <span class="option-icon">🏖️</span>
                     <span class="option-title">Second Home</span>
+                    <span class="option-desc">Vacation home, not rented</span>
                 </span>
             </label>
             <label class="finder-option">
@@ -47,37 +49,38 @@
                 <span class="option-card">
                     <span class="option-icon">📈</span>
                     <span class="option-title">Investment Property</span>
+                    <span class="option-desc">Rental income property</span>
                 </span>
             </label>
         </div>
     </div>
 
-    <!-- Step 3: Income Documentation -->
+    <!-- Step 3: Income Documentation (dynamic based on property) -->
     <div class="finder-step" data-step="3">
         <h2>How can you document your income?</h2>
+        <div class="finder-options" id="incomeOptions">
+            <!-- Populated by JavaScript based on property type -->
+        </div>
+    </div>
+
+    <!-- Step 3b: Own Primary (only for investment purchase) -->
+    <div class="finder-step" data-step="3b">
+        <h2>Do you currently own a primary residence?</h2>
         <div class="finder-options">
             <label class="finder-option">
-                <input type="radio" name="income" value="taxes">
+                <input type="radio" name="hasPrimary" value="yes">
                 <span class="option-card">
-                    <span class="option-icon">📄</span>
-                    <span class="option-title">Tax Returns / W-2s</span>
-                    <span class="option-desc">Standard 2 years of tax returns</span>
+                    <span class="option-icon">✅</span>
+                    <span class="option-title">Yes</span>
+                    <span class="option-desc">I already own a primary home</span>
                 </span>
             </label>
             <label class="finder-option">
-                <input type="radio" name="income" value="bank">
-                <span class="option-card">
-                    <span class="option-icon">🏦</span>
-                    <span class="option-title">Bank Statements</span>
-                    <span class="option-desc">12-24 months of business/personal bank statements</span>
-                </span>
-            </label>
-            <label class="finder-option">
-                <input type="radio" name="income" value="none">
+                <input type="radio" name="hasPrimary" value="no">
                 <span class="option-card">
                     <span class="option-icon">❌</span>
-                    <span class="option-title">No Income Verification</span>
-                    <span class="option-desc">Based on property cash flow only</span>
+                    <span class="option-title">No</span>
+                    <span class="option-desc">This would be my first property</span>
                 </span>
             </label>
         </div>
@@ -85,7 +88,7 @@
 
     <!-- Step 4: Employment Length -->
     <div class="finder-step" data-step="4">
-        <h2>How long have you been employed?</h2>
+        <h2>How long have you been employed (or self-employed)?</h2>
         <div class="finder-options">
             <label class="finder-option">
                 <input type="radio" name="employment" value="2years">
@@ -106,7 +109,7 @@
                 <span class="option-card">
                     <span class="option-icon">💼</span>
                     <span class="option-title">Self-Employed 5+ Years</span>
-                    <span class="option-desc">Can potentially use 1 year only</span>
+                    <span class="option-desc">May qualify for Freddie 5-Year Rule</span>
                 </span>
             </label>
         </div>
@@ -115,7 +118,7 @@
     <!-- Step 5: Veteran Status -->
     <div class="finder-step" data-step="5">
         <h2>Are you a veteran or active-duty military?</h2>
-        <div class="finder-options">
+        <div class="finder-options" id="veteranOptions">
             <label class="finder-option">
                 <input type="radio" name="veteran" value="yes">
                 <span class="option-card">
@@ -168,10 +171,10 @@
         </div>
     </div>
 
-    <!-- Step 7: Down Payment -->
+    <!-- Step 7: Down Payment (only for purchase) -->
     <div class="finder-step" data-step="7">
         <h2>How much can you put down?</h2>
-        <div class="finder-options">
+        <div class="finder-options" id="downPaymentOptions">
             <label class="finder-option">
                 <input type="radio" name="downpayment" value="20+">
                 <span class="option-card">
@@ -322,42 +325,289 @@
 .result-card li {
     margin-bottom: 5px;
 }
+.note-card {
+    background: #fef3c7;
+    border: 1px solid #f59e0b;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 15px;
+}
+.note-card p {
+    margin: 0;
+    color: #92400e;
+}
 </style>
 
 <script>
 (function() {
     let currentStep = 1;
-    const totalSteps = 7;
+    let maxStep = 7;
     const answers = {};
 
+    // Store step configurations
+    let stepConfig = {
+        property: null,
+        purpose: null
+    };
+
     function updateProgress() {
-        const progress = (currentStep / totalSteps) * 100;
-        document.getElementById('progressBar').style.width = progress + '%';
+        let progress = 0;
+        if (currentStep === 1) progress = 14;
+        else if (currentStep === 2) progress = 28;
+        else if (currentStep === 3) progress = 42;
+        else if (currentStep === 3.5) progress = 50;
+        else if (currentStep === 4) progress = 60;
+        else if (currentStep === 5) progress = 75;
+        else if (currentStep === 6) progress = 85;
+        else if (currentStep === 7) progress = 95;
+        else if (currentStep === 8) progress = 100;
+        
+        const bar = document.getElementById('progressBar');
+        if (bar) bar.style.width = progress + '%';
     }
 
     function showStep(step) {
         document.querySelectorAll('.finder-step').forEach(s => s.classList.remove('active'));
-        const stepEl = document.querySelector('[data-step="' + step + '"]');
+        
+        let stepEl;
+        if (step === 3.5) {
+            stepEl = document.querySelector('[data-step="3b"]');
+        } else {
+            stepEl = document.querySelector('[data-step="' + step + '"]');
+        }
+        
         if (stepEl) stepEl.classList.add('active');
         
-        document.getElementById('prevBtn').disabled = step === 1;
-        document.getElementById('nextBtn').textContent = step === totalSteps ? 'See Results' : 'Next';
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        
+        if (prevBtn) prevBtn.disabled = step === 1;
+        
+        if (nextBtn) {
+            if (step === maxStep || (step === 3.5 && maxStep === 3.5)) {
+                nextBtn.textContent = 'See Results';
+            } else {
+                nextBtn.textContent = 'Next';
+            }
+        }
+        
         updateProgress();
     }
 
     function saveAnswer() {
         const currentQuestion = document.querySelector('.finder-step.active');
+        if (!currentQuestion) return;
+        
         const radio = currentQuestion.querySelector('input[type="radio"]:checked');
         if (radio) {
-            answers[currentQuestion.dataset.step] = radio.value;
+            answers[radio.name] = radio.value;
+            
+            // Track property and purpose changes
+            if (radio.name === 'property') {
+                stepConfig.property = radio.value;
+                populateIncomeOptions(radio.value);
+                populateVeteranOptions();
+                updateMaxStep();
+            }
+            if (radio.name === 'purpose') {
+                stepConfig.purpose = radio.value;
+                updateDownPaymentOptions();
+                updateMaxStep();
+            }
+        }
+    }
+
+    function populateIncomeOptions(propertyType) {
+        const container = document.getElementById('incomeOptions');
+        if (!container) return;
+        
+        let html = '';
+        
+        if (propertyType === 'secondary') {
+            // Second home - only tax returns
+            html = `
+                <label class="finder-option">
+                    <input type="radio" name="income" value="taxes" checked>
+                    <span class="option-card">
+                        <span class="option-icon">📄</span>
+                        <span class="option-title">Tax Returns / W-2s</span>
+                        <span class="option-desc">Standard 2 years of tax returns required</span>
+                    </span>
+                </label>
+            `;
+        } else if (propertyType === 'investment') {
+            // Investment - all options
+            html = `
+                <label class="finder-option">
+                    <input type="radio" name="income" value="taxes">
+                    <span class="option-card">
+                        <span class="option-icon">📄</span>
+                        <span class="option-title">Tax Returns / W-2s</span>
+                        <span class="option-desc">Standard 2 years of tax returns</span>
+                    </span>
+                </label>
+                <label class="finder-option">
+                    <input type="radio" name="income" value="bank">
+                    <span class="option-card">
+                        <span class="option-icon">🏦</span>
+                        <span class="option-title">Bank Statements</span>
+                        <span class="option-desc">12-24 months of bank statements</span>
+                    </span>
+                </label>
+                <label class="finder-option">
+                    <input type="radio" name="income" value="none">
+                    <span class="option-card">
+                        <span class="option-icon">📈</span>
+                        <span class="option-title">No Income Verification</span>
+                        <span class="option-desc">Based on property cash flow (DSCR)</span>
+                    </span>
+                </label>
+            `;
+        } else {
+            // Primary residence - all options with correct descriptions
+            html = `
+                <label class="finder-option">
+                    <input type="radio" name="income" value="taxes">
+                    <span class="option-card">
+                        <span class="option-icon">📄</span>
+                        <span class="option-title">Tax Returns / W-2s</span>
+                        <span class="option-desc">Standard 2 years of tax returns</span>
+                    </span>
+                </label>
+                <label class="finder-option">
+                    <input type="radio" name="income" value="bank">
+                    <span class="option-card">
+                        <span class="option-icon">🏦</span>
+                        <span class="option-title">Bank Statements</span>
+                        <span class="option-desc">12-24 months of business/personal bank statements</span>
+                    </span>
+                </label>
+                <label class="finder-option">
+                    <input type="radio" name="income" value="none">
+                    <span class="option-card">
+                        <span class="option-icon">💼</span>
+                        <span class="option-title">Cannot Document Income</span>
+                        <span class="option-desc">Can verify employment 2+ years but no tax returns</span>
+                    </span>
+                </label>
+            `;
+        }
+        
+        container.innerHTML = html;
+    }
+
+    function populateVeteranOptions() {
+        const container = document.getElementById('veteranOptions');
+        if (!container) return;
+        
+        // VA only for primary residence
+        if (stepConfig.property === 'primary') {
+            container.innerHTML = `
+                <label class="finder-option">
+                    <input type="radio" name="veteran" value="yes">
+                    <span class="option-card">
+                        <span class="option-icon">🎖️</span>
+                        <span class="option-title">Yes - VA Eligible</span>
+                    </span>
+                </label>
+                <label class="finder-option">
+                    <input type="radio" name="veteran" value="no">
+                    <span class="option-card">
+                        <span class="option-icon">❌</span>
+                        <span class="option-title">No</span>
+                    </span>
+                </label>
+            `;
+        } else {
+            // Not primary - skip veteran question
+            container.innerHTML = `
+                <label class="finder-option">
+                    <input type="radio" name="veteran" value="no" checked style="display:none;">
+                </label>
+            `;
+            answers.veteran = 'no';
+        }
+    }
+
+    function updateDownPaymentOptions() {
+        const container = document.getElementById('downPaymentOptions');
+        if (!container) return;
+        
+        if (stepConfig.purpose === 'refinance') {
+            // Refinance - different options
+            container.innerHTML = `
+                <label class="finder-option">
+                    <input type="radio" name="downpayment" value="refinance" checked>
+                    <span class="option-card">
+                        <span class="option-icon">🏠</span>
+                        <span class="option-title">Refinancing My Current Home</span>
+                        <span class="option-desc">Already own the property</span>
+                    </span>
+                </label>
+            `;
+        } else {
+            // Purchase - original options
+            container.innerHTML = `
+                <label class="finder-option">
+                    <input type="radio" name="downpayment" value="20+">
+                    <span class="option-card">
+                        <span class="option-icon">💵</span>
+                        <span class="option-title">20%+</span>
+                    </span>
+                </label>
+                <label class="finder-option">
+                    <input type="radio" name="downpayment" value="10-20">
+                    <span class="option-card">
+                        <span class="option-icon">💰</span>
+                        <span class="option-title">10-20%</span>
+                    </span>
+                </label>
+                <label class="finder-option">
+                    <input type="radio" name="downpayment" value="3.5-10">
+                    <span class="option-card">
+                        <span class="option-icon">💳</span>
+                        <span class="option-title">3.5-10%</span>
+                    </span>
+                </label>
+                <label class="finder-option">
+                    <input type="radio" name="downpayment" value="0-3.5">
+                    <span class="option-card">
+                        <span class="option-icon">🆓</span>
+                        <span class="option-title">0-3.5%</span>
+                    </span>
+                </label>
+            `;
+        }
+    }
+
+    function updateMaxStep() {
+        // Refinance: skip down payment (step 7), skip hasPrimary
+        if (stepConfig.purpose === 'refinance') {
+            maxStep = 6; // Ends at credit score
+        }
+        // Investment purchase: add hasPrimary question (step 3.5)
+        else if (stepConfig.purpose === 'purchase' && stepConfig.property === 'investment') {
+            maxStep = 7;
+        }
+        // Primary/Second home purchase: normal flow
+        else {
+            maxStep = 7;
         }
     }
 
     function calculateResults() {
         const results = [];
         
+        const purpose = answers[1]; // purchase/refinance
+        const property = answers[2]; // primary/secondary/investment
+        const income = answers[3]; // taxes/bank/none
+        const hasPrimary = answers['3b']; // yes/no (for investment)
+        const veteran = answers[5]; // yes/no
+        const credit = answers[6]; // 720+/680-719/620-679/below620
+        const downPayment = answers[7]; // 20+/10-20/3.5-10/0-3.5
+        
         // VA Loan
-        if (answers[5] === 'yes' && answers[1] === 'purchase') {
+        if (veteran === 'yes' && property === 'primary') {
             results.push({
                 name: 'VA Loan',
                 score: '100% Match',
@@ -368,20 +618,24 @@
         }
 
         // Conventional
-        if (answers[2] === 'primary' && answers[3] === 'taxes' && parseInt(answers[6]) >= 680) {
-            if (answers[7] === '20+' || answers[7] === '10-20') {
-                results.push({
-                    name: 'Conventional Loan',
-                    score: '95% Match',
-                    desc: 'Best rates for borrowers with good credit and income.',
-                    bestFor: ['Competitive interest rates', 'PMI can be removed at 20% equity', 'Lower overall costs'],
-                    icon: '🏦'
-                });
+        if (property === 'primary' || property === 'secondary') {
+            if (income === 'taxes') {
+                if (credit === '720+' || credit === '680-719') {
+                    if (downPayment === '20+' || downPayment === '10-20') {
+                        results.push({
+                            name: 'Conventional Loan',
+                            score: '95% Match',
+                            desc: 'Best rates for borrowers with good credit and income.',
+                            bestFor: ['Competitive interest rates', 'PMI can be removed at 20% equity', 'Lower overall costs'],
+                            icon: '🏦'
+                        });
+                    }
+                }
             }
         }
 
-        // FHA
-        if ((parseInt(answers[6]) < 720 || answers[7] === '3.5-10') && answers[2] === 'primary') {
+        // FHA - Primary only, not investment
+        if (property === 'primary' && (credit === '620-679' || credit === 'below620' || downPayment === '3.5-10' || downPayment === '0-3.5')) {
             results.push({
                 name: 'FHA Loan',
                 score: '90% Match',
@@ -391,8 +645,8 @@
             });
         }
 
-        // Self-Employed / Bank Statements
-        if (answers[3] === 'bank' || (answers[4] === 'selfemployed' && answers[3] === 'taxes')) {
+        // Bank Statement Loan - Primary or Investment
+        if (income === 'bank' && property !== 'secondary') {
             results.push({
                 name: 'Bank Statement Loan',
                 score: '95% Match',
@@ -402,8 +656,8 @@
             });
         }
 
-        // DSCR Investment
-        if (answers[2] === 'investment' || answers[3] === 'none') {
+        // DSCR - Investment property ONLY
+        if (property === 'investment' && income === 'none') {
             results.push({
                 name: 'DSCR Loan',
                 score: '100% Match',
@@ -413,7 +667,7 @@
             });
         }
 
-        // Freddie 5-Year Rule
+        // Freddie 5-Year Rule - Self-employed 5+ years
         if (answers[4] === 'selfemployed') {
             results.push({
                 name: 'Freddie Mac (5-Year Rule)',
@@ -421,6 +675,15 @@
                 desc: 'If you have 5+ years self-employed, only 1 year of tax returns needed.',
                 bestFor: ['Established business owners', 'Strong recent income', 'Better rates than non-QM'],
                 icon: '⭐'
+            });
+        }
+
+        // Note for investment without primary
+        if (purpose === 'purchase' && property === 'investment' && hasPrimary === 'no') {
+            results.unshift({
+                name: 'Note',
+                isNote: true,
+                text: 'Most investors prefer you to own a primary residence first before purchasing an investment property. However, we can discuss your specific situation.'
             });
         }
 
@@ -434,26 +697,53 @@
         if (results.length === 0) {
             container.innerHTML = '<p>Based on your answers, we recommend speaking with a lender to discuss your options. Every situation is unique!</p>';
         } else {
-            container.innerHTML = results.map(r => `
-                <div class="result-card">
-                    <span class="match-score">${r.score}</span>
-                    <h3>${r.icon} ${r.name}</h3>
-                    <p>${r.desc}</p>
-                    <ul>
-                        ${r.bestFor.map(item => `<li>${item}</li>`).join('')}
-                    </ul>
-                </div>
-            `).join('');
+            container.innerHTML = results.map(r => {
+                if (r.isNote) {
+                    return `<div class="note-card"><p>${r.text}</p></div>`;
+                }
+                return `
+                    <div class="result-card">
+                        <span class="match-score">${r.score}</span>
+                        <h3>${r.icon} ${r.name}</h3>
+                        <p>${r.desc}</p>
+                        <ul>
+                            ${r.bestFor.map(item => `<li>${item}</li>`).join('')}
+                        </ul>
+                    </div>
+                `;
+            }).join('');
         }
         
         document.querySelector('[data-step="results"]').classList.add('active');
-        document.getElementById('progressBar').style.width = '100%';
+        updateProgress();
         document.querySelector('.finder-nav').style.display = 'none';
     }
 
     document.getElementById('nextBtn').addEventListener('click', function() {
         saveAnswer();
-        if (currentStep < totalSteps) {
+        
+        // Check if we need to show hasPrimary question
+        if (currentStep === 3 && stepConfig.purpose === 'purchase' && stepConfig.property === 'investment') {
+            currentStep = 3.5;
+            showStep(currentStep);
+            return;
+        }
+        
+        // Skip veteran step if not primary
+        if (currentStep === 4 && stepConfig.property !== 'primary') {
+            currentStep = 5; // Skip to credit
+            showStep(currentStep);
+            return;
+        }
+        
+        // Skip down payment for refinance
+        if (currentStep === 5 && stepConfig.purpose === 'refinance') {
+            currentStep = 8; // Skip to results
+            showStep(currentStep);
+            return;
+        }
+        
+        if (currentStep < maxStep) {
             currentStep++;
             showStep(currentStep);
         } else {
@@ -462,10 +752,35 @@
     });
 
     document.getElementById('prevBtn').addEventListener('click', function() {
+        // Handle going back from hasPrimary
+        if (currentStep === 3.5) {
+            currentStep = 3;
+            showStep(currentStep);
+            return;
+        }
+        
+        // Handle going back past veteran skip
+        if (currentStep === 5 && stepConfig.property !== 'primary' && answers[4]) {
+            currentStep = 4;
+            showStep(currentStep);
+            return;
+        }
+        
+        // Handle going back past down payment skip
+        if (currentStep === 6 && stepConfig.purpose === 'refinance' && answers[6]) {
+            currentStep = 5;
+            showStep(currentStep);
+            return;
+        }
+        
         if (currentStep > 1) {
             currentStep--;
             showStep(currentStep);
         }
     });
+
+    // Initialize
+    populateIncomeOptions('primary');
+    populateVeteranOptions();
 })();
 </script>
